@@ -1,0 +1,60 @@
+# Gacha-DSS game rules configuration
+# All probabilities are in [0,1]. All counters are integer pulls.
+# This file is intentionally verbose for traceability.
+
+meta:
+  game: "Gacha"
+  version: "5.0"
+  updated_at: "2026-02-08"
+
+# Banner / pool settings
+banner:
+  name: "limited_character"
+  rarity_target: "5star"
+
+# Base probability for the target rarity (before soft pity)
+base_probability:
+  five_star: 0.006
+
+# Hard pity: guaranteed by this pull count (inclusive)
+pity:
+  hard_pity: 90
+  # Soft pity curve begins at this pull count (inclusive)
+  soft_pity_start: 74
+  # Soft pity curve mode: linear or quadratic
+  soft_pity_mode: "linear"
+  # Per-pull increment after soft pity start (linear mode only)
+  # Example: p = base + (pull_index - soft_pity_start + 1) * soft_pity_step
+  soft_pity_step: 0.05
+
+# 50/50 or guarantee tracking
+# If guarantee is true, next 5* is guaranteed to be target.
+# If guarantee is false, there is a split between target and off-target.
+rate_up:
+  target_probability_when_no_guarantee: 0.5
+  target_probability_when_guarantee: 1.0
+
+# 5.0 capture/lock-on parameters (placeholder)
+# Provide a hook for version-specific rule adjustments.
+capture_mechanism:
+  enabled: true
+  # Number of attempts before forced capture
+  hard_capture: 2
+  # Probability of capture each time (when not forced)
+  capture_probability: 0.55
+
+# Resource constraints
+resources:
+  pulls_per_day: 1.0
+  days_remaining_in_version: 42
+  daily_bonus_pull: 0.0
+
+# Random seed for reproducibility (optional)
+random:
+  seed: 20260208
+
+# Validation targets for simulation checks
+validation:
+  expected_overall_five_star_rate: 0.016
+  tolerance: 0.001
+  min_samples: 100000
